@@ -1,11 +1,11 @@
 # QA Playwright – Démo par Radia Ghilas
 
-Petit projet *portfolio-ready* pour démontrer des compétences QA :
+Petit projet *portfolio-ready* :
 - **Playwright** (tests fonctionnels, non-régression, login, todo)
 - **Plan de tests**, **stratégie**, **checklist release**
 - **CI GitHub Actions** (exécution des tests sur Chromium/Firefox/WebKit)
 
-## 🚀 Lancer localement
+## Lancer localement
 
 ```bash
 npm i
@@ -17,7 +17,7 @@ npm start     # démarre le serveur sur http://localhost:3000
 
 > Accès de test : `qa@demo.com` / `radia123`
 
-## 🎯 Ce que ce repo démontre
+## Ce que ce repo démontre
 
 - Rédaction de **plans de tests** et **scénarios** (dossier `docs/`)
 - **Tests de non-régression** (voir `tests/non-regression.spec.ts`)
@@ -25,15 +25,15 @@ npm start     # démarre le serveur sur http://localhost:3000
 - **Suivi des anomalies** avec un modèle de ticket (`docs/DEFECT_TEMPLATE.md`)
 - **CI** qui exécute la suite Playwright sur chaque push
 
-## 🧪 Périmètre des tests
+## Périmètre des tests
 
 - **UI** : ajout/suppression/bascule des todos, messages d’erreur, login
 - **API** : validation basique via interactions UI (les endpoints sont dans `server.js`)
 
-## 🔧 Feature flags & régressions
+## Feature flags & régressions
 Une variable `FEATURE_FLAG_PERSIST_TODOS` est prévue dans `server.js` pour simuler une évolution produit et bâtir des **tests de non-régression** autour de la persistance.
 
-## 📁 Structure
+## Structure
 ```
 .
 ├── docs/
