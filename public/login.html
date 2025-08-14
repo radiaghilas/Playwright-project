@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Connexion</title>
+</head>
+<body>
+  <h1>Connexion</h1>
+  <form id="form">
+    <label>Email <input id="email" type="email" value="qa@demo.com"/></label><br/>
+    <label>Mot de passe <input id="pwd" type="password" value="radia123"/></label><br/>
+    <button type="submit">Se connecter</button>
+  </form>
+  <p id="msg"></p>
+  <script>
+    document.getElementById('form').onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('pwd').value;
+      const r = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
+      const data = await r.json();
+      document.getElementById('msg').textContent = data.ok ? 'Connecté' : 'Échec de connexion';
+    };
+  </script>
+</body>
+</html>

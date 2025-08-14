@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>QA Demo - Todo</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 2rem; }
+    header { display:flex; gap:1rem; align-items:center; }
+    .card { border:1px solid #ddd; border-radius:12px; padding:1rem; max-width:720px; }
+    .row { display:flex; gap:0.5rem; margin-top:1rem; }
+    .todo { display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px dashed #ddd; }
+    .todo:last-child { border-bottom:none; }
+    button { border-radius:10px; padding:0.4rem 0.8rem; border:1px solid #ccc; cursor:pointer; }
+    input { padding:0.5rem; border-radius:10px; border:1px solid #ccc; flex:1; }
+    .done { text-decoration: line-through; opacity:0.6; }
+    .notice { background:#fff8c5; border:1px solid #f0e68c; padding:0.5rem; border-radius:8px; margin:0.5rem 0; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Todo – Démo QA</h1>
+    <a href="/login"><button id="login-link">Se connecter</button></a>
+  </header>
+  <div class="card">
+    <p class="notice">Cette app contient des petits défauts exprès pour la démo QA 😉</p>
+    <div class="row">
+      <input id="new-text" placeholder="Nouvelle tâche (min 3 caractères)"/>
+      <button id="add-btn">Ajouter</button>
+    </div>
+    <div id="list"></div>
+  </div>
+  <script>
+    async function refresh() {
+      const r = await fetch('/api/todos'); const data = await r.json();
+      const container = document.getElementById('list'); container.innerHTML = '';
+      data.todos.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'todo';
+        div.innerHTML = \`
+          <span class="\${t.done ? 'done':''}">\${t.text}</span>
+          <span>
+            <button data-id="\${t.id}" class="toggle">Basculer</button>
+            <button data-id="\${t.id}" class="delete">Supprimer</button>
+          </span>\`;
+        container.appendChild(div);
+      });
+      document.querySelectorAll('.toggle').forEach(b => b.onclick = async (e) => {
+        const id = e.target.getAttribute('data-id');
+        await fetch('/api/todos/'+id+'/toggle', { method:'PUT' });
+        refresh();
+      });
+      document.querySelectorAll('.delete').forEach(b => b.onclick = async (e) => {
+        const id = e.target.getAttribute('data-id');
+        await fetch('/api/todos/'+id, { method:'DELETE' });
+        refresh();
+      });
+    }
+    document.getElementById('add-btn').onclick = async () => {
+      const text = document.getElementById('new-text').value;
+      const r = await fetch('/api/todos', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ text }) });
+      if (r.status !== 200) alert('Erreur: texte trop court');
+      document.getElementById('new-text').value = '';
+      refresh();
+    };
+    refresh();
+  </script>
+</body>
+</html>

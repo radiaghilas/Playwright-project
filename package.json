@@ -1,0 +1,21 @@
+{
+  "name": "qa-playwright-radia",
+  "version": "1.0.0",
+  "description": "Demo app + QA automation (Playwright) by Radia Ghilas. Includes test plan, non-regression suite, and CI.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "npx playwright test --config=playwright.config.ts",
+    "test:ui": "npx playwright test --headed --project=chromium",
+    "test:update": "npx playwright test --update-snapshots",
+    "lint": "echo \"(Optional) Add ESLint later\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0"
+  }
+}
