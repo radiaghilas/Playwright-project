@@ -49,7 +49,7 @@ Une variable `FEATURE_FLAG_PERSIST_TODOS` est prévue dans `server.js` pour simu
 └── playwright.config.ts
 ```
 
-## 📌 Idées d'extensions
+## Idées d'extensions
 - Ajouter des **tests API** dédiés (supertest) et des **tests de charge** (k6)
 - Couvrir l’accessibilité (axe-playwright)
 - Ajouter ESLint/Prettier et des tests visuels par snapshot
